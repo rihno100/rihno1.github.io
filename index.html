@@ -19,6 +19,9 @@
               $(".avaliabletool,.lightboxbg").css("display","block");
               e.preventDefault()
               return false
+          }else if($(this).index() == 0){
+              e.preventDefault()
+              return false
           }
         })
         $(".lightboxbg").on("click",function(){
