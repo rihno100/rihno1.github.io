@@ -2,8 +2,8 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8">
-    <title>portporlio</title>
-    <link rel="stylesheet" href="build.css">
+    <title>myportpolio</title>
+    <link rel="stylesheet" href="build.css"-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -16,7 +16,7 @@
       $(document).ready(function(){
         $("aside ul li").on("click",function(e){
           if($(this).index() == 1){
-              $(".avaliabletool, .lightboxbg").css("display","block");
+              $(".avaliabletool,.lightboxbg").css("display","block");
               e.preventDefault()
               return false
           }
@@ -34,15 +34,12 @@ Highcharts.chart('charts', {
   title: {
       text: 'avaliable tool & language'
   },
-  subtitle: {
-      text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-  },
   xAxis: {
       type: 'category'
   },
   yAxis: {
       title: {
-          text: 'Total percent market share'
+          text: 'skill peformance percent'
       }
 
   },
@@ -66,43 +63,43 @@ Highcharts.chart('charts', {
 
   "series": [
       {
-          "name": "Browsers",
+          "name": "language",
           "colorByPoint": true,
           "data": [
               {
-                  "name": "Chrome",
-                  "y": 62.74,
-                  "drilldown": "Chrome"
+                  "name": "javacript",
+                  "y": 82,
+                  "drilldown": "javascript"
               },
               {
-                  "name": "Firefox",
-                  "y": 10.57,
-                  "drilldown": "Firefox"
+                  "name": "database",
+                  "y": 80,
+                  "drilldown": "database"
               },
               {
-                  "name": "Internet Explorer",
-                  "y": 7.23,
-                  "drilldown": "Internet Explorer"
+                  "name": "bundler",
+                  "y": 70,
+                  "drilldown": "bundler"
               },
               {
-                  "name": "Safari",
-                  "y": 5.58,
-                  "drilldown": "Safari"
+                  "name": "html5",
+                  "y": 92,
+                  "drilldown": "html5"
               },
               {
-                  "name": "Edge",
-                  "y": 4.02,
-                  "drilldown": "Edge"
+                  "name": "framework",
+                  "y": 70,
+                  "drilldown": "framework"
               },
               {
-                  "name": "Opera",
-                  "y": 1.92,
-                  "drilldown": "Opera"
+                  "name": "graphic",
+                  "y": 95,
+                  "drilldown": "graphic"
               },
               {
-                  "name": "Other",
-                  "y": 7.62,
-                  "drilldown": null
+                  "name": "UX/UI",
+                  "y": 75,
+                  "drilldown": "UX/UI"
               }
           ]
       }
@@ -110,218 +107,112 @@ Highcharts.chart('charts', {
   "drilldown": {
       "series": [
           {
-              "name": "Chrome",
-              "id": "Chrome",
+              "name": "javascript",
+              "id": "javascript",
               "data": [
                   [
-                      "v65.0",
-                      0.1
+                      "javascript",
+                      80
                   ],
                   [
-                      "v64.0",
-                      1.3
-                  ],
-                  [
-                      "v63.0",
-                      53.02
-                  ],
-                  [
-                      "v62.0",
-                      1.4
-                  ],
-                  [
-                      "v61.0",
-                      0.88
-                  ],
-                  [
-                      "v60.0",
-                      0.56
-                  ],
-                  [
-                      "v59.0",
-                      0.45
-                  ],
-                  [
-                      "v58.0",
-                      0.49
-                  ],
-                  [
-                      "v57.0",
-                      0.32
-                  ],
-                  [
-                      "v56.0",
-                      0.29
-                  ],
-                  [
-                      "v55.0",
-                      0.79
-                  ],
-                  [
-                      "v54.0",
-                      0.18
-                  ],
-                  [
-                      "v51.0",
-                      0.13
-                  ],
-                  [
-                      "v49.0",
-                      2.16
-                  ],
-                  [
-                      "v48.0",
-                      0.13
-                  ],
-                  [
-                      "v47.0",
-                      0.11
-                  ],
-                  [
-                      "v43.0",
-                      0.17
-                  ],
-                  [
-                      "v29.0",
-                      0.26
+                      "jqeury",
+                      85
                   ]
               ]
           },
           {
-              "name": "Firefox",
-              "id": "Firefox",
+              "name": "database",
+              "id": "database",
               "data": [
                   [
-                      "v58.0",
-                      1.02
+                      "mysql",
+                      70
                   ],
                   [
-                      "v57.0",
-                      7.36
-                  ],
-                  [
-                      "v56.0",
-                      0.35
-                  ],
-                  [
-                      "v55.0",
-                      0.11
-                  ],
-                  [
-                      "v54.0",
-                      0.1
-                  ],
-                  [
-                      "v52.0",
-                      0.95
-                  ],
-                  [
-                      "v51.0",
-                      0.15
-                  ],
-                  [
-                      "v50.0",
-                      0.1
-                  ],
-                  [
-                      "v48.0",
-                      0.31
-                  ],
-                  [
-                      "v47.0",
-                      0.12
+                      "firebase",
+                      85
                   ]
               ]
           },
           {
-              "name": "Internet Explorer",
-              "id": "Internet Explorer",
+              "name": "bundler",
+              "id": "bundler",
               "data": [
                   [
-                      "v11.0",
-                      6.2
+                      "webpack",
+                      75
                   ],
                   [
-                      "v10.0",
-                      0.29
-                  ],
-                  [
-                      "v9.0",
-                      0.27
-                  ],
-                  [
-                      "v8.0",
-                      0.47
+                      "browserify",
+                      65
                   ]
               ]
           },
           {
-              "name": "Safari",
-              "id": "Safari",
+              "name": "html5",
+              "id": "html5",
               "data": [
                   [
-                      "v11.0",
-                      3.39
+                      "css3",
+                      100
                   ],
                   [
-                      "v10.1",
-                      0.96
+                      "flex",
+                      90
                   ],
                   [
-                      "v10.0",
-                      0.36
-                  ],
-                  [
-                      "v9.1",
-                      0.54
-                  ],
-                  [
-                      "v9.0",
-                      0.13
-                  ],
-                  [
-                      "v5.1",
-                      0.2
+                      "cross browsing",
+                      95
                   ]
               ]
           },
           {
-              "name": "Edge",
-              "id": "Edge",
+              "name": "framework",
+              "id": "framework",
               "data": [
                   [
-                      "v16",
-                      2.6
+                      "vue js",
+                      70
                   ],
                   [
-                      "v15",
-                      0.92
+                      "angular",
+                      30
                   ],
                   [
-                      "v14",
-                      0.4
-                  ],
-                  [
-                      "v13",
-                      0.1
+                      "jquery mobile",
+                      45
                   ]
               ]
           },
           {
-              "name": "Opera",
-              "id": "Opera",
+              "name": "graphic",
+              "id": "graphic",
               "data": [
                   [
-                      "v50.0",
-                      0.96
+                      "adobe photoshop",
+                      100
                   ],
                   [
-                      "v49.0",
-                      0.82
+                      "adobe illustrator",
+                      90
                   ],
                   [
-                      "v12.1",
-                      0.14
+                      "sketch",
+                      50
+                  ]
+              ]
+          },
+          {
+              "name": "UX/UI",
+              "id": "UX/UI",
+              "data": [
+                  [
+                      "sketch",
+                      50
+                  ],
+                  [
+                      "zeplin",
+                      60
                   ]
               ]
           }
