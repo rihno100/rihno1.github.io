@@ -39,7 +39,8 @@ $(document).ready(function(){
 
 
   $(window).resize(function(){
-    docwd = $(this).width();
+    docWidth = $(this).width();
+    $(".cta-wrap").css("width",docWidth+"px");
   });
 
 
@@ -68,7 +69,7 @@ $(document).ready(function(){
 
   $(".careertreinarea > .items").on({
     mouseenter : function(e){
-      console.log($(this).find(".inner h3").text())
+      //console.log($(this).find(".inner h3").text())
       $(".outputarea .title").text($(this).find(".inner h3").text());
       $(".outputarea .company").html($(this).find(".inner .company").html());
       $(".outputarea .kind").html($(this).find(".inner .kind").html());
