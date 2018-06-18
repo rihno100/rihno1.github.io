@@ -95,7 +95,7 @@ $(document).ready(function(){
           return false;
         }
       })
-    }else if(i == 7){
+    }else if(i == 8){
       $(this).find("a").on({
         click : function(e){
           $("#navmap p:nth-of-type(4)").trigger("click");
