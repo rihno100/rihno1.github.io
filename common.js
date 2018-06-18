@@ -1,14 +1,11 @@
 $(document).ready(function(){
   $("aside ul li").on("click",function(e){
-    if($(this).index() == 1){
+    if($(this).index() == 0){
         $(".avaliabletool,.lightboxbg").css("display","block");
         e.preventDefault()
         return false
-      }else if($(this).index() == 3){
+      }else if($(this).index() == 2){
           $(".profilearea,.lightboxbg").css("display","block");
-          e.preventDefault()
-          return false
-      }else if($(this).index() == 0){
           e.preventDefault()
           return false
       }
@@ -62,7 +59,7 @@ $(document).ready(function(){
       if(xDistance < ctaItemWidth/3){
         $(this).find(".careertreinarea").css("left","0px");
       }
-      if(xDistance > ctaItemWidth && xDistance < ctaWidth - ctaItemWidth){
+      if(xDistance > ctaItemWidth/3 && xDistance < ctaWidth - ctaItemWidth){
         $(this).find(".careertreinarea").css("left","-"+xDistance+"px");
       }
 
@@ -81,5 +78,39 @@ $(document).ready(function(){
   })
 
 
+  $("aside ul li").each(function(i){
+    if(i == 1){
+      $(this).find("a").on({
+        click : function(e){
+          $("#navmap p:nth-of-type(2)").trigger("click");
+          e.preventDefault;
+          return false;
+        }
+      })
+    }else if(i == 3){
+      $(this).find("a").on({
+        click : function(e){
+          $("#navmap p:nth-of-type(3)").trigger("click");
+          e.preventDefault;
+          return false;
+        }
+      })
+    }else if(i == 7){
+      $(this).find("a").on({
+        click : function(e){
+          $("#navmap p:nth-of-type(4)").trigger("click");
+          e.preventDefault;
+          return false;
+        }
+      })
+    }
+  });
+
+
+  $(".btn-floating.btn-large.getback").on({
+    click : function(){
+      $("#navmap p:nth-of-type(1)").trigger("click");
+    }
+  })
 
 });
