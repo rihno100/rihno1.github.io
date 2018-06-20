@@ -129,8 +129,8 @@ $(document).ready(function(){
           gItemSize = $(this).css("width");
           gelem  = $(this);
 
-          gelem.addClass("over");
           gelem .css({"left":"50%","top":"50%","width": "500px","height": "500px"})
+          gelem.addClass("over");
 
         }else{
           gelem.removeClass("over");
@@ -149,13 +149,35 @@ $(document).ready(function(){
   for(var i=0 ; i < dragItemLength ; i++ ){
       dragItems[i].addEventListener("dragstart", dragstart);
       dragArea.addEventListener("dragover", dragover);
+      dragArea.addEventListener("dragleave", dragleave);
       dragArea.addEventListener("drop", drop);
   }
 
 
   function dragstart(e) {
-    e.dataTransfer.setData("moveelem",e.target.parentNode.id);
+    //console.log($(document).width()+","+$(document).height()+",this element-size :"+e.target.parentNode.getAttribute("id"))
     //console.log(e.target.parentNode.id)
+    var wdWidth = $(document).width();
+    var wdHeight = $(document).height();
+    var thisElem = e.target.parentNode.getAttribute("id");
+    var thisElemWidth = $("#"+thisElem).width();
+    var thisElemHeight = $("#"+thisElem).height();
+    var thisElemOsLeft = $("#"+thisElem).offset().left;
+    var thisElemOsTop = $("#"+thisElem).offset().top;
+    var eCenterPointLeft = e.pageX - thisElemOsLeft;
+    var eCenterPointTop = e.pageY - thisElemOsTop;
+
+    e.dataTransfer.setData("wdWidth",wdWidth);
+    e.dataTransfer.setData("wdHeight",wdHeight);
+    e.dataTransfer.setData("moveelem",thisElem);
+    e.dataTransfer.setData("thisElemOsLeft",thisElemOsLeft);
+    e.dataTransfer.setData("thisElemOsTop",thisElemOsTop);
+    e.dataTransfer.setData("thisElemWidth",thisElemWidth);
+    e.dataTransfer.setData("thisElemHeight",thisElemHeight);
+    e.dataTransfer.setData("eCenterPointLeft",eCenterPointLeft);
+    e.dataTransfer.setData("eCenterPointTop",eCenterPointTop);
+
+    console.log("dragstart"+thisElem+"eW:"+thisElemWidth+",ecP:"+eCenterPointLeft+",pinter:"+e.pageX)
   }
   function dragleave(e) {
     e.preventDefault()
@@ -171,9 +193,46 @@ $(document).ready(function(){
   }
   function drop(e) {
     //this.append(box)
-    var data = e.dataTransfer.getData("moveelem");
-    $("#"+data).css({"left":e.pageX+"px","top":e.pageY+"px"});
-    console.log("drop"+data)
+    var data  = e.dataTransfer.getData("moveelem");
+    var thisElemWidth = e.dataTransfer.getData("thisElemWidth");
+    var thisElemHeight = e.dataTransfer.getData("thisElemHeight");
+    var eCenterPointLeft = e.dataTransfer.getData("eCenterPointLeft");
+    var eCenterPointTop = e.dataTransfer.getData("eCenterPointTop");
+    var overAreaWidth = thisElemWidth - eCenterPointLeft;
+    var overAreaHeight = thisElemHeight - eCenterPointTop;
+
+    var wdWidth = $(window).width();
+    var wdHeight = $(window).height();
+    var epX = e.pageX;
+    var epY = e.pageY;
+
+    var epXoaWidth = epX+overAreaWidth;
+    var epYoaHeight = epY+overAreaHeight;
+
+    var lefOrigin = epX - eCenterPointLeft;
+    var topOrigin = epY - eCenterPointTop;
+
+    var wdHthisElemHeight = wdHeight - thisElemHeight - 2;
+    var wdWthisElemWidth = wdWidth - thisElemWidth - 2;
+
+
+    if(wdWidth > epXoaWidth && eCenterPointLeft < epX){
+      $("#"+data).css({"left": lefOrigin +"px","top": topOrigin +"px"});
+
+      if(wdHeight > epYoaHeight && eCenterPointTop < epY){
+        $("#"+data).css({"left": lefOrigin,"top": topOrigin});
+      }else if(wdHeight < epYoaHeight){
+        $("#"+data).css({"left": lefOrigin,"top": wdHthisElemHeight});
+      }else if(eCenterPointTop > epY){
+        $("#"+data).css({"left": lefOrigin,"top":"0px"});
+      }
+
+    }else if(wdWidth < epXoaWidth){
+      $("#"+data).css({"left": wdWthisElemWidth,"top": topOrigin});
+    }else if(eCenterPointLeft > epX){
+      $("#"+data).css({"left":"0px","top": topOrigin});
+    }
+
   }
 
   /********sorting my ordinnary thumbnail  when window resize**********/
@@ -182,7 +241,7 @@ $(document).ready(function(){
     var wdHeight = $(this).height();
 
     $(".galleryitems").each(function(){
-      
+
       var elemSize = Math.random() * 400;
       while(elemSize < 50){
         elemSize = Math.random() * 400
