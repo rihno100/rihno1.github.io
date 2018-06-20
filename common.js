@@ -148,10 +148,10 @@ $(document).ready(function(){
 
   for(var i=0 ; i < dragItemLength ; i++ ){
       dragItems[i].addEventListener("dragstart", dragstart);
-      dragArea.addEventListener("dragover", dragover);
-      dragArea.addEventListener("dragleave", dragleave);
-      dragArea.addEventListener("drop", drop);
   }
+  dragArea.addEventListener("dragover", dragover);
+  dragArea.addEventListener("dragleave", dragleave);
+  dragArea.addEventListener("drop", drop);
 
 
   function dragstart(e) {
@@ -177,7 +177,7 @@ $(document).ready(function(){
     e.dataTransfer.setData("eCenterPointLeft",eCenterPointLeft);
     e.dataTransfer.setData("eCenterPointTop",eCenterPointTop);
 
-    console.log("dragstart"+thisElem+"eW:"+thisElemWidth+",ecP:"+eCenterPointLeft+",pinter:"+e.pageX)
+    //console.log("dragstart"+thisElem+"eW:"+thisElemWidth+",ecP:"+eCenterPointLeft+",pinter:"+e.pageX)
   }
   function dragleave(e) {
     e.preventDefault()
@@ -216,23 +216,47 @@ $(document).ready(function(){
     var wdWthisElemWidth = wdWidth - thisElemWidth - 2;
 
 
-    if(wdWidth > epXoaWidth && eCenterPointLeft < epX){
-      $("#"+data).css({"left": lefOrigin +"px","top": topOrigin +"px"});
-
-      if(wdHeight > epYoaHeight && eCenterPointTop < epY){
-        $("#"+data).css({"left": lefOrigin,"top": topOrigin});
-      }else if(wdHeight < epYoaHeight){
-        $("#"+data).css({"left": lefOrigin,"top": wdHthisElemHeight});
-      }else if(eCenterPointTop > epY){
-        $("#"+data).css({"left": lefOrigin,"top":"0px"});
-      }
-
-    }else if(wdWidth < epXoaWidth){
-      $("#"+data).css({"left": wdWthisElemWidth,"top": topOrigin});
-    }else if(eCenterPointLeft > epX){
-      $("#"+data).css({"left":"0px","top": topOrigin});
+    function yMoveFunc(data,topOrigin){
+        $("#"+data).css({"top": topOrigin});
     }
 
+    function yMouveOutFunc(wdHeight,epYoaHeight,epY,data,topOrigin,wdHthisElemHeight,eCenterPointTop){
+      if(wdHeight < epYoaHeight){//하단으로 벗어났을때
+        $("#"+data).css({"top": wdHthisElemHeight});
+      }else if(eCenterPointTop > epY){//상단으로 벗어났을때
+        $("#"+data).css({"top":"0px"});
+      }
+    }
+
+    if($("#"+data).hasClass("over") == false){///클릭한 확대이미지일경우 드래그이동을 하지않는다.
+      if(wdWidth > epXoaWidth && eCenterPointLeft < epX){
+        if(wdHeight > epYoaHeight && eCenterPointTop < epY){//상단 또는 하단으로 벗어나지 않았을때
+          $("#"+data).css({"left": lefOrigin});//좌우로 벗어나지 않았을때
+          yMoveFunc(data,topOrigin)
+        }else{
+          $("#"+data).css({"left": lefOrigin});//좌우로 벗어나지 않았을때
+          yMouveOutFunc(wdHeight,epYoaHeight,epY,data,topOrigin,wdHthisElemHeight,eCenterPointTop)
+        }
+      }else if(wdWidth < epXoaWidth){//오른쪽영역으로 벗어날때
+        if(wdHeight > epYoaHeight && eCenterPointTop < epY){//상단 또는 하단으로 벗어나지 않았을때
+          $("#"+data).css({"left": wdWthisElemWidth});
+          yMoveFunc(data,topOrigin)
+        }else{
+          $("#"+data).css({"left": wdWthisElemWidth});
+          yMouveOutFunc(wdHeight,epYoaHeight,epY,data,topOrigin,wdHthisElemHeight,eCenterPointTop)
+        }
+      }else if(eCenterPointLeft > epX){//왼쪽영역으로 벗어날때
+        if(wdHeight > epYoaHeight && eCenterPointTop < epY){//상단 또는 하단으로 벗어나지 않았을때
+          $("#"+data).css({"left":"0px"});
+          yMoveFunc(data,topOrigin)
+        }else{
+          $("#"+data).css({"left":"0px"});
+          yMouveOutFunc(wdHeight,epYoaHeight,epY,data,topOrigin,wdHthisElemHeight,eCenterPointTop)
+        }
+      }
+    }else{
+      alert("확대이미지는 드래그 할 수 없습니다.")
+    }
   }
 
   /********sorting my ordinnary thumbnail  when window resize**********/
